@@ -1,0 +1,12 @@
+<header id="header">
+  <a id="logo" href="/"><img src="" alt="Cthulhu"></a>
+  <div class="topmenu collapsed">
+    <nav class="topmenu-full">
+      <ul class="topmenu-primary">
+        <li><a class="latest" href="/index.html"><i class="fa fa-clock-o"></i><span>Movies</span></a></li>
+        <li><a class="random" href="/genres.html"><i class="fa fa-random"></i><span>Genres</span></a></li>
+        <li><a class="upload" href="/tv.html"><i class="fa fa-upload"></i><span>TV</span></a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

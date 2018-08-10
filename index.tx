@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<link media="all" type="text/css" rel="stylesheet" href="styles.css">
+  <title>Hack the Planet!</title>
+</head>
+<body>
+  : include header;
+
+<main id="main">
+  <div id="thumbs" class="thumbs-container thumb-listing infinite-scroll">
+    <section class="thumb-listing-page">
+    <ul>
+    : for $videos -> $video {
+      <li>
+      <figure class="thumb" style="width:<: $video.img.width :>px;height:<: $video.img.height :>px">
+        <img alt="loading" class="lazyload loaded" data-src="<: $video.img.url :>" src="<: $video.img.url :>">
+        <a href="<: $video.watch :>" class="preview"></a>
+        <div class="thumb-info">
+          <a href="https://www.themoviedb.org/movie/<: $video.id :>">Info</a>
+        </div>
+        </figure>
+      </li>
+    : }
+    </ul>
+    </section>
+  </div>
+</main>
+</body>
+</html>
