@@ -10,6 +10,11 @@
   : include header;
 
 <main id="main">
+  : if $page == 'index.html' {
+    <h1>Upcoming</h1>
+  : } else {
+    <h1>Seen</h1>
+  : }
   <div id="thumbs" class="thumbs-container thumb-listing infinite-scroll">
     <section class="thumb-listing-page">
     <ul>
@@ -17,9 +22,9 @@
       <li>
       <figure class="thumb" style="width:<: $video.img.width :>px;height:<: $video.img.height :>px">
         <img alt="loading" class="lazyload loaded" data-src="<: $video.img.url :>" src="<: $video.img.url :>">
-        <a href="<: $video.watch :>" class="preview"></a>
+        <a href="<: $video.imdb :>" class="preview"></a>
         <div class="thumb-info">
-          <a href="https://www.themoviedb.org/movie/<: $video.id :>">Info</a>
+          <a href="https://www.themoviedb.org/movie/<: $video.id :>">TMDb</a>
         </div>
         </figure>
       </li>

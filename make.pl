@@ -60,7 +60,7 @@ sub cache_request {
 }
 
 sub films_upcoming {
-  return cache_request("https://api.pinboard.in/v1/posts/all?tag=films&format=json&auth_token=$pinboard_key", "cache/film-club-upcoming.json");
+  return cache_request("https://api.pinboard.in/v1/posts/all?tag=film-club-upcoming&format=json&auth_token=$pinboard_key", "cache/film-club-upcoming.json");
 }
 
 sub films_seen {
@@ -124,14 +124,19 @@ sub get_img {
 }
 
 binmode(STDOUT, ":utf8");
-sub main {
+
+sub build_page {
+  my $page = shift;
+  my $films = shift;
+  my @films = @{$films};
+
   my $tx = Text::Xslate->new();
   my %mlist = (
-      videos => [],
+    page => $page,
+    videos => [],
   );
 
-  my @upcoming = @{films_upcoming()};
-  for my $film (@upcoming) {
+  for my $film (@films) {
     my %film = %{$film};
     my $title = $film{'description'};
     $title =~ s/ - IMDb//;
@@ -139,6 +144,7 @@ sub main {
     # Get info
     my $info = get_movie_info($title);
     my %info = %{$info};
+    $info{'imdb'} = $url;
     # Get Image
     my $img = $info{'poster_path'};
     if (! $img) {
@@ -152,7 +158,15 @@ sub main {
     };
     push(@{$mlist{'videos'}}, {%info});
   }
-  write_file('index.html', $tx->render('index.tx', \%mlist));
+  write_file($page, $tx->render('index.tx', \%mlist));
+}
+
+sub main {
+  my @upcoming = @{films_upcoming()};
+  sleep 5;
+  my @seen = @{films_seen()};
+  build_page('index.html', \@upcoming);
+  build_page('seen.html', \@seen);
 }
 
 exit main();
